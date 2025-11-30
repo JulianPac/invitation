@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- LINKEDIN STYLE VARIABLES --- */
         :root {
             --li-blue: #0077B5;
             --li-dark-blue: #005E93;
@@ -18,133 +17,151 @@
             --border-color: #e0e0e0;
         }
 
-        body {
+        html, body {
             margin: 0;
             padding: 0;
             background-color: var(--li-bg-gray);
             font-family: 'Roboto', sans-serif;
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            text-align: center;
             color: var(--text-dark);
+            scroll-behavior: smooth;
         }
 
-        /* --- 1. FULL PAGE INTRO LAYER --- */
+        body.no-scroll {
+            overflow: hidden;
+        }
+
+
         #intro-layer {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             background-color: var(--li-bg-gray);
-            z-index: 100;
+            z-index: 1000;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            text-align: center;
             padding: 20px;
             box-sizing: border-box;
-            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s;
+        }
+
+        #intro-layer.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
 
         #intro-layer h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 20px;
+            font-weight: 700;
         }
 
         #intro-layer h2 {
             font-size: 1.5rem;
             max-width: 800px;
             line-height: 1.6;
+            font-weight: 300;
+            color: var(--text-medium);
         }
-
-        /* --- 2. CARD CONTAINER --- */
-        .card-container {
-            background-color: var(--li-white);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            width: 90%;
-            max-width: 600px;
-            height: 550px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden; 
-            opacity: 0; 
-            transform: translateY(20px); 
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .card-container.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Internal Screens inside the Card */
-        .screen {
-            position: absolute; 
-            width: 100%;
-            height: 100%;
-            padding: 30px;
-            box-sizing: border-box;
-            transition: opacity 0.6s ease-in-out; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .screen.active {
-            opacity: 1;
-            pointer-events: auto;
-            z-index: 10;
-        }
-
-        /* --- TYPOGRAPHY --- */
-        h1 { font-weight: 700; color: var(--text-dark); }
-        h2 { font-weight: 400; color: var(--text-medium); }
-        h3 { font-size: 1rem; font-weight: 700; text-transform: uppercase; color: var(--text-medium); letter-spacing: 1px; margin: 25px 0 10px 0; width: 100%; text-align: left; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;}
 
         .highlight { color: var(--li-blue); font-weight: 700; }
 
-        /* --- RESUME SPECIFIC STYLES --- */
-        .resume-scroll-area {
-            width: 100%;
-            height: 100%;
-            overflow-y: auto; 
-            text-align: left;
-            padding-right: 10px;
+        #main-content {
+            opacity: 0;
+            transition: opacity 1s ease-in;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px 100px 20px; 
         }
+
+        #main-content.visible {
+            opacity: 1;
+        }
+
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        h3.section-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-medium);
+            letter-spacing: 1.5px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+
+        .resume-item {
+            background-color: var(--li-white);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08); 
+            transition: transform 0.2s ease;
+        }
+
+        .resume-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .job-title { font-weight: 700; font-size: 1.2rem; color: var(--text-dark); }
+        .company { font-weight: 500; font-size: 1rem; color: var(--li-blue); margin-top: 2px;}
+        .date { font-size: 0.9rem; color: var(--text-medium); font-weight: 500;}
         
-        /* Custom Scrollbar */
-        .resume-scroll-area::-webkit-scrollbar { width: 6px; }
-        .resume-scroll-area::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 3px; }
+        .description { 
+            font-size: 1rem; 
+            color: var(--text-dark); 
+            line-height: 1.6; 
+            margin-top: 10px;
+        }
 
-        .resume-item { margin-bottom: 20px; }
-        .job-title { font-weight: 700; font-size: 1.1rem; color: var(--text-dark); }
-        .company { font-weight: 500; font-size: 0.95rem; color: var(--text-dark); }
-        .date { font-size: 0.85rem; color: var(--text-medium); margin-bottom: 6px; display: block;}
-        .description { font-size: 0.95rem; color: var(--text-medium); line-height: 1.5; }
+        /* SKILLS */
+        .skills-container { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 12px; 
+            background-color: var(--li-white);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
 
-        .skills-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
         .skill-tag {
             background-color: #E8F3FF; 
             color: var(--li-dark-blue);
-            padding: 5px 12px;
-            border-radius: 16px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
         }
 
-        /* --- BUTTONS --- */
+        .contact-box {
+            text-align: center;
+            background-color: var(--li-white);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        /* BUTTONS */
         button {
             font-family: inherit;
             font-size: 1.1rem;
@@ -153,8 +170,8 @@
             border-radius: 30px;
             cursor: pointer;
             transition: all 0.2s ease;
-            outline: none;
             border: none;
+            outline: none;
         }
 
         .btn-primary {
@@ -166,20 +183,15 @@
         .btn-primary:hover {
             background-color: var(--li-dark-blue);
             border-color: var(--li-dark-blue);
-            box-shadow: 0 4px 10px rgba(0,119,181, 0.3);
+            box-shadow: 0 4px 12px rgba(0,119,181, 0.3);
             transform: translateY(-2px);
         }
 
-        .btn-full-width {
-            width: 100%;
-            margin-top: 30px;
-            margin-bottom: 20px;
-        }
 
-        /* --- FOOTER --- */
         .footer-link {
             position: fixed;
             bottom: 20px;
+            right: 20px;
             font-size: 0.9rem;
             color: var(--text-medium);
             text-decoration: none;
@@ -187,137 +199,136 @@
             align-items: center;
             gap: 8px;
             padding: 10px 20px;
-            background-color: rgba(255,255,255,0.9);
+            background-color: rgba(255,255,255,0.95);
             border-radius: 30px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             z-index: 50; 
+            transition: color 0.2s;
         }
         .footer-link:hover { color: var(--li-blue); }
         .li-icon { width: 18px; height: 18px; fill: currentColor; }
 
+
+        @media (max-width: 600px) {
+            #intro-layer h1 { font-size: 2.5rem; }
+            .job-header { flex-direction: column; }
+            .date { margin-top: 5px; color: var(--text-medium); }
+            .footer-link { bottom: 10px; right: 50%; transform: translateX(50%); width: max-content;}
+        }
+
     </style>
 </head>
-<body>
+<body class="no-scroll">
 
     <div id="intro-layer">
         <h1>Hello, my name is <br><span class="highlight">Julian Pacheco Hernandez</span>.</h1>
         <h2>I am a first generation Mexican student majoring in Computer Science.</h2>
-        <br>
+        <br><br>
         <button id="start-btn" class="btn-primary">Get to know me</button>
     </div>
 
-    <div id="main-card" class="intro-layer">
+    <div id="main-content">
         
-        <div id="resume-screen" class="screen active">
-            <div class="resume-scroll-area">
-                <h1 style="text-align: center; font-size: 1.5rem;">Experience Highlights</h1>
-                
-                <h3>Education</h3>
-                <div class="resume-item">
-                    <div class="job-title">The University of Texas at El Paso</div>
-                    <div class="company">B.S. Computer Science</div>
-                    <span class="date">Exp. Graduation: Fall 2026</span>
-                </div>
+        <header style="text-align: center; margin-bottom: 60px;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Julian Pacheco</h1>
+            <p style="font-size: 1.2rem; color: var(--text-medium);">Computer Science Student @ UTEP</p>
+        </header>
 
-                <h3>Experience</h3>
-                <div class="resume-item">
-                    <div class="job-title">Software Engineering Intern</div>
-                    <div class="company">El Paso Water Company</div>
-                    <span class="date">March 2025 - June 2025</span>
-                    <div class="description">
-                        Developed intelligent virtual agents using Microsoft Azure and OpenAI API. [cite_start]Built RAG-based search engines to streamline operational data access[cite: 19, 20].
+        <section>
+            <h3 class="section-title">Education</h3>
+            <div class="resume-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Bachelor of Science in Computer Science</div>
+                        <div class="company">The University of Texas at El Paso [cite: 3]</div>
                     </div>
+                    <div class="date">Exp. Graduation: Fall 2026</div>
                 </div>
-
-                <div class="resume-item">
-                    <div class="job-title">Software Engineering Fellow</div>
-                    <div class="company">Google Tech Exchange</div>
-                    <span class="date">Jan 2023 - June 2023</span>
-                    <div class="description">
-                        Completed applied data structures curriculum taught by Google engineers. [cite_start]Developed a wiki using Flask and Google Cloud Services[cite: 26, 27].
-                    </div>
-                </div>
-
-                <h3>Technical Skills</h3>
-                <div class="skills-container">
-                    <span class="skill-tag">Java</span>
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">Azure</span>
-                    <span class="skill-tag">SQL</span>
-                    <span class="skill-tag">Flask</span>
-                    <span class="skill-tag">JavaScript</span>
-                    <span class="skill-tag">HTML</span>
-                </div>
-
-                <button id="connect-btn" class="btn-primary btn-full-width">Let's Connect</button>
             </div>
-        </div>
+        </section>
 
-        <div id="contact-screen" class="screen">
-            <h1 style="font-size: 2rem;">Let's get in touch</h1>
-            <p style="font-size: 1.1rem; max-width: 400px; margin-bottom: 30px;">
-                I am currently open to internship opportunities and new projects. Feel free to reach out!
-            </p>
-            
-            <p style="font-size: 1.1rem;">Email me at:<br>
-                <a href="mailto:julianpacheco1115@gmail.com" class="highlight" style="text-decoration: none;">julianpacheco1115@gmail.com</a>
-            </p>
-            <br>
-            <button class="btn-primary" onclick="window.open('https://www.linkedin.com/in/julian-pacheco01/', '_blank')">View LinkedIn Profile</button>
-            <br><br>
-            <button id="back-btn" style="background: none; border: none; font-size: 0.9rem; color: #666; cursor: pointer; text-decoration: underline;">Back to Experience</button>
-        </div>
+        <section>
+            <h3 class="section-title">Experience Highlights</h3>
+
+            <div class="resume-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Software Engineering Intern</div>
+                        <div class="company">El Paso Water Company</div>
+                    </div>
+                    <div class="date">March 2025 - June 2025</div>
+                </div>
+                <div class="description">
+                    Developed intelligent virtual agents using Microsoft Azure and OpenAI API to streamline access to operational data. Built a customizable AI-powered search engine enabling staff to retrieve documentation through natural language queries.
+                </div>
+            </div>
+
+            <div class="resume-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Software Engineering Fellow</div>
+                        <div class="company">Google Tech Exchange</div>
+                    </div>
+                    <div class="date">Jan 2023 - June 2023 </div>
+                </div>
+                <div class="description">
+                    Completed a semester-long curriculum focused on applied data structures and software development taught by Google engineers. Developed a wiki website using Flask and Google Cloud Services.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h3 class="section-title">Technical Skills</h3>
+            <div class="skills-container">
+                <span class="skill-tag">Python (3 years)</span>
+                <span class="skill-tag">Java (3 years)</span>
+                <span class="skill-tag">HTML (3 years)</span>
+                <span class="skill-tag">JavaScript(1 year)</span>
+                <span class="skill-tag">Azure VA (4 months)</span>
+                <span class="skill-tag">SQL (4 months)</span>
+                <span class="skill-tag">Flask (1 year)</span>
+                <span class="skill-tag">Google Cloud Services (1 year)</span>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h3 class="section-title">Let's Connect</h3>
+            <div class="contact-box">
+                <h2 style="margin-top: 0; color: var(--text-dark);">Open to Opportunities</h2>
+                <p style="margin-bottom: 30px; font-size: 1.1rem; color: var(--text-medium);">
+                    I am currently looking for internships and new projects.
+                </p>
+                <button class="btn-primary" onclick="window.location.href='mailto:julianpacheco1115@gmail.com'">Email Me</button>
+                <br><br>
+                <a href="https://www.linkedin.com/in/julian-pacheco01/" target="_blank" style="color: var(--li-blue); text-decoration: none; font-weight: 500;">Visit LinkedIn Profile</a>
+            </div>
+        </section>
 
     </div>
 
     <a href="https://www.linkedin.com/in/julian-pacheco01/" target="_blank" class="footer-link">
         <svg class="li-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-        linkedin.com/in/julian-pacheco01
+        LinkedIn
     </a>
 
     <script>
-        // DOM Elements
         const introLayer = document.getElementById('intro-layer');
-        const mainCard = document.getElementById('main-card');
+        const mainContent = document.getElementById('main-content');
         const startBtn = document.getElementById('start-btn');
-        
-        const resumeScreen = document.getElementById('resume-screen');
-        const contactScreen = document.getElementById('contact-screen');
+        const body = document.body;
 
-        const connectBtn = document.getElementById('connect-btn');
-        const backBtn = document.getElementById('back-btn');
-
-        // Helper: Switch screens inside the card
-        function switchScreen(from, to) {
-            from.classList.remove('active');
-            from.style.opacity = '0';
-            
-            setTimeout(() => {
-                to.classList.add('active');
-            }, 600); 
-        }
-
-        // 1. START BUTTON CLICK (Full Screen -> Card)
         startBtn.addEventListener('click', () => {
-            introLayer.style.opacity = '0';
-            introLayer.style.transform = 'scale(1.1)'; 
+            // 1. Fade out Intro
+            introLayer.classList.add('hidden');
             
+            // 2. Enable Scroll on Body
+            body.classList.remove('no-scroll');
+
+            // 3. Fade In Main Content
             setTimeout(() => {
-                introLayer.style.display = 'none';
-                mainCard.classList.add('visible'); 
-            }, 800);
+                mainContent.classList.add('visible');
+            }, 500);
         });
-
-        // 2. RESUME -> CONTACT
-        connectBtn.addEventListener('click', () => {
-            switchScreen(resumeScreen, contactScreen);
-        });
-
-        // 3. CONTACT -> RESUME (Optional Back Button)
-        backBtn.addEventListener('click', () => {
-            switchScreen(contactScreen, resumeScreen);
-        });
-
     </script>
 </body>
 </html>
