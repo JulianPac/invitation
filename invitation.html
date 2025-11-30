@@ -4,24 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Julian Pacheco - Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- LINKEDIN STYLE VARIABLES --- */
+
         :root {
             --li-blue: #0077B5;
             --li-dark-blue: #005E93;
             --li-bg-gray: #F3F2EF;
             --li-white: #ffffff;
             --text-dark: rgba(0, 0, 0, 0.9);
-            --text-medium: rgba(0, 0, 0, 0.7);
+            --text-medium: rgba(0, 0, 0, 0.6);
+            --border-color: #e0e0e0;
         }
 
         body {
             margin: 0;
             padding: 0;
             background-color: var(--li-bg-gray);
-            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -32,85 +33,89 @@
             color: var(--text-dark);
         }
 
-        /* Main container for content to give it a "card" look */
+
         .card-container {
             background-color: var(--li-white);
-            padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             width: 90%;
-            max-width: 700px;
-            min-height: 400px; /* Ensure consistent height during transitions */
+            max-width: 600px;
+            height: 500px; 
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
 
         .screen {
             position: absolute; 
             width: 100%;
-            padding: 20px;
+            height: 100%;
+            padding: 30px;
             box-sizing: border-box;
-            transition: opacity 0.8s ease-in-out; 
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out; 
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            opacity: 0;
+            pointer-events: none;
         }
 
-        /* SCREEN VISIBILITY & LAYERING */
-        #intro-screen { opacity: 1; z-index: 10; }
-        #question-screen { opacity: 0; z-index: 9; pointer-events: none; }
-        #success-screen { opacity: 0; z-index: 8; pointer-events: none; }
-
-        /* TYPOGRAPHY */
-        h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--text-dark);
-            line-height: 1.3;
+        .screen.active {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 10;
         }
 
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: var(--text-medium);
-            margin-bottom: 30px;
+        h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 10px; color: var(--text-dark); }
+        h2 { font-size: 1.2rem; font-weight: 400; color: var(--text-medium); margin-bottom: 20px; }
+        h3 { font-size: 1rem; font-weight: 700; text-transform: uppercase; color: var(--text-medium); letter-spacing: 1px; margin: 20px 0 10px 0; width: 100%; text-align: left; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;}
+
+        .highlight { color: var(--li-blue); font-weight: 700; }
+
+
+        .resume-scroll-area {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            text-align: left;
+            padding-right: 10px;
         }
 
-        p {
-            font-size: 1.1rem;
-            color: var(--text-medium);
-            line-height: 1.6;
-            margin-bottom: 24px;
+        .resume-scroll-area::-webkit-scrollbar { width: 6px; }
+        .resume-scroll-area::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 3px; }
+
+        .resume-item { margin-bottom: 15px; }
+        .job-title { font-weight: 700; font-size: 1.1rem; color: var(--text-dark); }
+        .company { font-weight: 500; font-size: 0.95rem; color: var(--text-dark); }
+        .date { font-size: 0.85rem; color: var(--text-medium); margin-bottom: 4px; display: block;}
+        .description { font-size: 0.9rem; color: var(--text-medium); line-height: 1.4; }
+
+        .skills-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .skill-tag {
+            background-color: #E8F3FF;
+            color: var(--li-dark-blue);
+            padding: 5px 12px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
         }
 
-        /* Highlight text using LinkedIn blue */
-        .highlight {
-            color: var(--li-blue);
-            font-weight: 700;
-        }
-
-        /* BUTTON STYLES */
-        .button-container {
-            display: flex;
-            gap: 20px;
-            margin-top: 20px;
-        }
+        .button-container { display: flex; gap: 15px; margin-top: 20px; }
 
         button {
             font-family: inherit;
             font-size: 1rem;
             font-weight: 600;
-            padding: 12px 32px;
-            border-radius: 24px; /* Rounded pill buttons */
+            padding: 12px 24px;
+            border-radius: 24px;
             cursor: pointer;
             transition: all 0.2s ease;
+            outline: none;
         }
 
-        /* Primary "YES" button styling */
         .btn-primary {
             background-color: var(--li-blue);
             color: white;
@@ -119,11 +124,10 @@
         
         .btn-primary:hover {
             background-color: var(--li-dark-blue);
-             border-color: var(--li-dark-blue);
-             box-shadow: 0 4px 8px rgba(0,119,181, 0.3);
+            border-color: var(--li-dark-blue);
+            box-shadow: 0 4px 8px rgba(0,119,181, 0.3);
         }
 
-        /* Secondary "NO" button styling (Ghost button) */
         .btn-secondary {
             background-color: transparent;
             color: var(--text-medium);
@@ -131,19 +135,21 @@
         }
 
         .btn-secondary:hover {
-            background-color: rgba(0,0,0,0.05);
             border-color: var(--text-dark);
             color: var(--text-dark);
+            background-color: rgba(0,0,0,0.05);
         }
 
-        /* The moving button class */
+        .btn-full-width {
+            width: 100%;
+            margin-top: 20px;
+        }
+
         .runaway-btn {
             position: relative; 
-            transition: top 0.2s ease, left 0.2s ease; 
-            z-index: 100; /* Ensure it stays on top when moving outside card */
+            z-index: 9999;
         }
 
-        /* FOOTER LINK */
         .footer-link {
             position: fixed;
             bottom: 20px;
@@ -154,29 +160,67 @@
             align-items: center;
             gap: 8px;
             padding: 10px 20px;
-            background-color: rgba(255,255,255,0.8);
+            background-color: rgba(255,255,255,0.9);
             border-radius: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 100;
         }
-        
-        .footer-link:hover {
-            color: var(--li-blue);
-        }
-
-        /* LinkedIn Icon SVG */
-        .li-icon {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
+        .footer-link:hover { color: var(--li-blue); }
+        .li-icon { width: 18px; height: 18px; fill: currentColor; }
 
     </style>
 </head>
 <body>
 
     <div class="card-container">
-        <div id="intro-screen" class="screen">
-            <h1>Hello, my name is <span class="highlight">Julian Pacheco</span>.</h1>
+        
+        <div id="intro-screen" class="screen active">
+            <h1>Hello, my name is <br><span class="highlight">Julian Pacheco Hernandez</span>.</h1>
             <h2>I am a first generation Mexican student majoring in Computer Science.</h2>
+        </div>
+
+        <div id="resume-screen" class="screen">
+            <div class="resume-scroll-area">
+                <h1 style="text-align: center;">Experience Highlights</h1>
+                
+                <h3>Education</h3>
+                <div class="resume-item">
+                    <div class="job-title">The University of Texas at El Paso</div>
+                    <div class="company">B.S. Computer Science</div>
+                    <span class="date">Exp. Graduation: Fall 2026</span>
+                </div>
+
+                <h3>Experience</h3>
+                <div class="resume-item">
+                    <div class="job-title">Software Engineering Intern</div>
+                    <div class="company">El Paso Water Company</div>
+                    <span class="date">March 2025 - June 2025</span>
+                    <div class="description">
+                        Developed intelligent virtual agents using Microsoft Azure and OpenAI API. Built RAG-based search engines to streamline operational data access.
+                    </div>
+                </div>
+
+                <div class="resume-item">
+                    <div class="job-title">Software Engineering Fellow</div>
+                    <div class="company">Google Tech Exchange</div>
+                    <span class="date">Jan 2023 - June 2023</span>
+                    <div class="description">
+                        Completed applied data structures curriculum taught by Google engineers. Developed a wiki using Flask and Google Cloud Services.
+                    </div>
+                </div>
+
+                <h3>Technical Skills</h3>
+                <div class="skills-container">
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Azure</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">Flask</span>
+                    <span class="skill-tag">JavaScript</span>
+                </div>
+
+                <button id="next-btn" class="btn-primary btn-full-width">I have a question...</button>
+            </div>
         </div>
 
         <div id="question-screen" class="screen">
@@ -190,8 +234,9 @@
         <div id="success-screen" class="screen">
             <h1>Thank you!!!</h1>
             <p>Please contact me at <a href="mailto:julianpacheco1115@gmail.com" class="highlight" style="text-decoration: none;">julianpacheco1115@gmail.com</a> or through LinkedIn below.</p>
-             <button class="btn-primary" onclick="window.open('https://www.linkedin.com/in/julian-pacheco01/', '_blank')">View Profile</button>
+            <button class="btn-primary" onclick="window.open('https://www.linkedin.com/in/julian-pacheco01/', '_blank')">View Profile</button>
         </div>
+
     </div>
 
     <a href="https://www.linkedin.com/in/julian-pacheco01/" target="_blank" class="footer-link">
@@ -199,40 +244,44 @@
         linkedin.com/in/julian-pacheco01
     </a>
 
-
     <script>
         // Screens
         const introScreen = document.getElementById('intro-screen');
+        const resumeScreen = document.getElementById('resume-screen');
         const questionScreen = document.getElementById('question-screen');
         const successScreen = document.getElementById('success-screen');
 
         // Buttons
+        const nextBtn = document.getElementById('next-btn');
         const yesBtn = document.getElementById('yes-btn');
         const noBtn = document.getElementById('no-btn');
-        
-        // --- 1. INTRO TIMER (Transition to Question) ---
-        // Adjusted time to give them a moment to read your intro
-        setTimeout(() => {
-            introScreen.style.opacity = '0';
-            introScreen.style.pointerEvents = 'none'; 
 
-            setTimeout(() => {
-                introScreen.style.display = 'none'; 
-                questionScreen.style.pointerEvents = 'auto'; 
-                questionScreen.style.opacity = '1'; 
-            }, 800); // match transition time in CSS
-        }, 6000); 
-
-
-        // --- 2. MOVING BUTTON LOGIC ---
-        function moveButton(btn) {
-            // Important: Switch to fixed so it can escape the card container
-            btn.style.position = 'fixed'; 
-            btn.style.zIndex = '999'; // Ensure it sits over everything
+        // Helper to switch screens
+        function switchScreen(from, to) {
+            from.classList.remove('active');
+            from.style.opacity = '0';
             
-            // Calculate random position within window limits
-            // Added padding so it doesn't hit the exact screen edge
-            const padding = 40;
+            setTimeout(() => {
+                to.classList.add('active');
+            }, 600); // Wait for fade out
+        }
+
+
+        setTimeout(() => {
+            switchScreen(introScreen, resumeScreen);
+        }, 4500);
+
+
+        nextBtn.addEventListener('click', () => {
+            switchScreen(resumeScreen, questionScreen);
+        });
+
+
+        function moveButton(btn) {
+            btn.style.position = 'fixed'; 
+            
+            const padding = 60;
+
             const x = Math.random() * (window.innerWidth - btn.offsetWidth - padding);
             const y = Math.random() * (window.innerHeight - btn.offsetHeight - padding);
 
@@ -240,27 +289,18 @@
             btn.style.top = Math.max(padding/2, y) + 'px';
         }
 
-        // Trigger movement on hover (desktop) or touch (mobile)
+
         noBtn.addEventListener('mouseover', () => moveButton(noBtn));
         noBtn.addEventListener('touchstart', (e) => {
-             e.preventDefault(); // Prevents simulated click on mobile
+             e.preventDefault(); 
              moveButton(noBtn);
         });
 
 
-        // --- 3. YES CLICK (Goes to Success) ---
         yesBtn.addEventListener('click', () => {
-            questionScreen.style.opacity = '0';
-            questionScreen.style.pointerEvents = 'none';
+            switchScreen(questionScreen, successScreen);
 
-            // Hide the footer link on the final screen to reduce clutter
             document.querySelector('.footer-link').style.display = 'none';
-
-            setTimeout(() => {
-                questionScreen.style.display = 'none';
-                successScreen.style.pointerEvents = 'auto';
-                successScreen.style.opacity = '1'; 
-            }, 800);
         });
 
     </script>
