@@ -29,8 +29,7 @@
         body.no-scroll {
             overflow: hidden;
         }
-
-
+        
         #intro-layer {
             position: fixed;
             top: 0;
@@ -76,17 +75,12 @@
             transition: opacity 1s ease-in;
             max-width: 800px;
             margin: 0 auto;
-            padding: 60px 20px 100px 20px; 
+            padding: 60px 20px 100px 20px;
         }
 
-        #main-content.visible {
-            opacity: 1;
-        }
+        #main-content.visible { opacity: 1; }
 
-
-        section {
-            margin-bottom: 60px;
-        }
+        section { margin-bottom: 60px; }
 
         h3.section-title {
             font-size: 0.9rem;
@@ -105,7 +99,7 @@
             padding: 25px;
             border-radius: 8px;
             margin-bottom: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08); 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
             transition: transform 0.2s ease;
         }
 
@@ -125,15 +119,9 @@
         .job-title { font-weight: 700; font-size: 1.2rem; color: var(--text-dark); }
         .company { font-weight: 500; font-size: 1rem; color: var(--li-blue); margin-top: 2px;}
         .date { font-size: 0.9rem; color: var(--text-medium); font-weight: 500;}
-        
-        .description { 
-            font-size: 1rem; 
-            color: var(--text-dark); 
-            line-height: 1.6; 
-            margin-top: 10px;
-        }
+        .description { font-size: 1rem; color: var(--text-dark); line-height: 1.6; margin-top: 10px; }
 
-        /* SKILLS */
+
         .skills-container { 
             display: flex; 
             flex-wrap: wrap; 
@@ -161,7 +149,6 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.08);
         }
 
-        /* BUTTONS */
         button {
             font-family: inherit;
             font-size: 1.1rem;
@@ -188,6 +175,80 @@
         }
 
 
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .modal-overlay.show .modal-card {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .contact-row {
+            margin: 20px 0;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        
+        .contact-row:last-child { border-bottom: none; }
+
+        .contact-label {
+            font-size: 0.85rem;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .contact-link {
+            font-size: 1.1rem;
+            color: var(--li-blue);
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+        }
+        
+        .contact-link:hover { text-decoration: underline; }
+
         .footer-link {
             position: fixed;
             bottom: 20px;
@@ -208,7 +269,7 @@
         .footer-link:hover { color: var(--li-blue); }
         .li-icon { width: 18px; height: 18px; fill: currentColor; }
 
-
+        /* Responsive */
         @media (max-width: 600px) {
             #intro-layer h1 { font-size: 2.5rem; }
             .job-header { flex-direction: column; }
@@ -240,7 +301,7 @@
                 <div class="job-header">
                     <div>
                         <div class="job-title">Bachelor of Science in Computer Science</div>
-                        <div class="company">The University of Texas at El Paso [cite: 3]</div>
+                        <div class="company">The University of Texas at El Paso</div>
                     </div>
                     <div class="date">Exp. Graduation: Fall 2026</div>
                 </div>
@@ -269,7 +330,7 @@
                         <div class="job-title">Software Engineering Fellow</div>
                         <div class="company">Google Tech Exchange</div>
                     </div>
-                    <div class="date">Jan 2023 - June 2023 </div>
+                    <div class="date">Jan 2023 - June 2023</div>
                 </div>
                 <div class="description">
                     Completed a semester-long curriculum focused on applied data structures and software development taught by Google engineers. Developed a wiki website using Flask and Google Cloud Services.
@@ -280,7 +341,6 @@
         <section>
             <h3 class="section-title">Technical Skills</h3>
             <div class="skills-container">
-                <span class="skill-tag">Python (3 years)</span>
                 <span class="skill-tag">Java (3 years)</span>
                 <span class="skill-tag">HTML (3 years)</span>
                 <span class="skill-tag">JavaScript(1 year)</span>
@@ -298,12 +358,32 @@
                 <p style="margin-bottom: 30px; font-size: 1.1rem; color: var(--text-medium);">
                     I am currently looking for internships and new projects.
                 </p>
-                <button class="btn-primary" onclick="window.location.href='mailto:julianpacheco1115@gmail.com'">Email Me</button>
-                <br><br>
-                <a href="https://www.linkedin.com/in/julian-pacheco01/" target="_blank" style="color: var(--li-blue); text-decoration: none; font-weight: 500;">Visit LinkedIn Profile</a>
+                <button id="open-contact-btn" class="btn-primary">Contact Me</button>
             </div>
         </section>
 
+    </div>
+
+    <div id="contact-modal" class="modal-overlay">
+        <div class="modal-card">
+            <span class="close-btn" id="close-modal">&times;</span>
+            <h2 style="margin-top: 0; color: var(--li-dark-blue);">Contact Details</h2>
+            
+            <div class="contact-row">
+                <span class="contact-label">Email</span>
+                <a href="mailto:julianpacheco1115@gmail.com" class="contact-link">julianpacheco1115@gmail.com</a>
+            </div>
+
+            <div class="contact-row">
+                <span class="contact-label">Phone</span>
+                <a href="tel:9153428855" class="contact-link">(915) 342-8855</a>
+            </div>
+
+            <div class="contact-row">
+                <span class="contact-label">LinkedIn</span>
+                <a href="https://www.linkedin.com/in/julian-pacheco01/" target="_blank" class="contact-link">linkedin.com/in/julian-pacheco01/</a>
+            </div>
+        </div>
     </div>
 
     <a href="https://www.linkedin.com/in/julian-pacheco01/" target="_blank" class="footer-link">
@@ -318,16 +398,30 @@
         const body = document.body;
 
         startBtn.addEventListener('click', () => {
-            // 1. Fade out Intro
             introLayer.classList.add('hidden');
-            
-            // 2. Enable Scroll on Body
             body.classList.remove('no-scroll');
-
-            // 3. Fade In Main Content
             setTimeout(() => {
                 mainContent.classList.add('visible');
             }, 500);
+        });
+
+        const openBtn = document.getElementById('open-contact-btn');
+        const closeBtn = document.getElementById('close-modal');
+        const modal = document.getElementById('contact-modal');
+
+        openBtn.addEventListener('click', () => {
+            modal.classList.add('show');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('show');
+        });
+
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+            }
         });
     </script>
 </body>
