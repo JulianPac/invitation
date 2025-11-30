@@ -1,4 +1,4 @@
-is<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@ is<!DOCTYPE html>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
-
+        /* --- LINKEDIN STYLE VARIABLES --- */
         :root {
             --li-blue: #0077B5;
             --li-dark-blue: #005E93;
@@ -24,6 +24,7 @@ is<!DOCTYPE html>
             background-color: var(--li-bg-gray);
             font-family: 'Roboto', sans-serif;
             height: 100vh;
+            width: 100vw;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -33,28 +34,66 @@ is<!DOCTYPE html>
             color: var(--text-dark);
         }
 
+        /* --- 1. FULL PAGE INTRO LAYER --- */
+        #intro-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--li-bg-gray);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+        }
 
+        #intro-layer h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        #intro-layer h2 {
+            font-size: 1.5rem;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+
+        /* --- 2. CARD CONTAINER --- */
         .card-container {
             background-color: var(--li-white);
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             width: 90%;
             max-width: 600px;
-            height: 500px; 
+            height: 550px;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow: hidden; 
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
+        .card-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Internal Screens inside the Card */
         .screen {
             position: absolute; 
             width: 100%;
             height: 100%;
             padding: 30px;
             box-sizing: border-box;
-            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out; 
+            transition: opacity 0.6s ease-in-out; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -69,33 +108,35 @@ is<!DOCTYPE html>
             z-index: 10;
         }
 
-        h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 10px; color: var(--text-dark); }
-        h2 { font-size: 1.2rem; font-weight: 400; color: var(--text-medium); margin-bottom: 20px; }
-        h3 { font-size: 1rem; font-weight: 700; text-transform: uppercase; color: var(--text-medium); letter-spacing: 1px; margin: 20px 0 10px 0; width: 100%; text-align: left; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;}
+        /* --- TYPOGRAPHY --- */
+        h1 { font-weight: 700; color: var(--text-dark); }
+        h2 { font-weight: 400; color: var(--text-medium); }
+        h3 { font-size: 1rem; font-weight: 700; text-transform: uppercase; color: var(--text-medium); letter-spacing: 1px; margin: 25px 0 10px 0; width: 100%; text-align: left; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;}
 
         .highlight { color: var(--li-blue); font-weight: 700; }
 
-
+        /* --- RESUME SPECIFIC STYLES --- */
         .resume-scroll-area {
             width: 100%;
             height: 100%;
-            overflow-y: auto;
+            overflow-y: auto; 
             text-align: left;
             padding-right: 10px;
         }
-
+        
+        /* Custom Scrollbar */
         .resume-scroll-area::-webkit-scrollbar { width: 6px; }
         .resume-scroll-area::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 3px; }
 
-        .resume-item { margin-bottom: 15px; }
+        .resume-item { margin-bottom: 20px; }
         .job-title { font-weight: 700; font-size: 1.1rem; color: var(--text-dark); }
         .company { font-weight: 500; font-size: 0.95rem; color: var(--text-dark); }
-        .date { font-size: 0.85rem; color: var(--text-medium); margin-bottom: 4px; display: block;}
-        .description { font-size: 0.9rem; color: var(--text-medium); line-height: 1.4; }
+        .date { font-size: 0.85rem; color: var(--text-medium); margin-bottom: 6px; display: block;}
+        .description { font-size: 0.95rem; color: var(--text-medium); line-height: 1.5; }
 
         .skills-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
         .skill-tag {
-            background-color: #E8F3FF;
+            background-color: #E8F3FF; 
             color: var(--li-dark-blue);
             padding: 5px 12px;
             border-radius: 16px;
@@ -103,17 +144,17 @@ is<!DOCTYPE html>
             font-weight: 600;
         }
 
-        .button-container { display: flex; gap: 15px; margin-top: 20px; }
-
+        /* --- BUTTONS --- */
         button {
             font-family: inherit;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            padding: 12px 24px;
-            border-radius: 24px;
+            padding: 14px 32px;
+            border-radius: 30px;
             cursor: pointer;
             transition: all 0.2s ease;
             outline: none;
+            border: none;
         }
 
         .btn-primary {
@@ -125,31 +166,17 @@ is<!DOCTYPE html>
         .btn-primary:hover {
             background-color: var(--li-dark-blue);
             border-color: var(--li-dark-blue);
-            box-shadow: 0 4px 8px rgba(0,119,181, 0.3);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--text-medium);
-            border: 2px solid var(--text-medium);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--text-dark);
-            color: var(--text-dark);
-            background-color: rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(0,119,181, 0.3);
+            transform: translateY(-2px);
         }
 
         .btn-full-width {
             width: 100%;
-            margin-top: 20px;
+            margin-top: 30px;
+            margin-bottom: 20px;
         }
 
-        .runaway-btn {
-            position: relative; 
-            z-index: 9999;
-        }
-
+        /* --- FOOTER --- */
         .footer-link {
             position: fixed;
             bottom: 20px;
@@ -163,7 +190,7 @@ is<!DOCTYPE html>
             background-color: rgba(255,255,255,0.9);
             border-radius: 30px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            z-index: 100;
+            z-index: 50; 
         }
         .footer-link:hover { color: var(--li-blue); }
         .li-icon { width: 18px; height: 18px; fill: currentColor; }
@@ -172,16 +199,18 @@ is<!DOCTYPE html>
 </head>
 <body>
 
-    <div class="card-container">
-        
-        <div id="intro-screen" class="screen active">
-            <h1>Hello, my name is <br><span class="highlight">Julian Pacheco Hernandez</span>.</h1>
-            <h2>I am a first generation Mexican student majoring in Computer Science.</h2>
-        </div>
+    <div id="intro-layer">
+        <h1>Hello, my name is <br><span class="highlight">Julian Pacheco Hernandez</span>.</h1>
+        <h2>I am a first generation Mexican student majoring in Computer Science.</h2>
+        <br>
+        <button id="start-btn" class="btn-primary">Get to know me</button>
+    </div>
 
-        <div id="resume-screen" class="screen">
+    <div id="main-card" class="card-container">
+        
+        <div id="resume-screen" class="screen active">
             <div class="resume-scroll-area">
-                <h1 style="text-align: center;"></h1>
+                <h1 style="text-align: center; font-size: 1.5rem;">Experience Highlights</h1>
                 
                 <h3>Education</h3>
                 <div class="resume-item">
@@ -196,7 +225,7 @@ is<!DOCTYPE html>
                     <div class="company">El Paso Water Company</div>
                     <span class="date">March 2025 - June 2025</span>
                     <div class="description">
-                        Developed intelligent virtual agents using Microsoft Azure and OpenAI API. Built RAG-based search engines to streamline operational data access.
+                        Developed intelligent virtual agents using Microsoft Azure and OpenAI API. [cite_start]Built RAG-based search engines to streamline operational data access[cite: 19, 20].
                     </div>
                 </div>
 
@@ -205,7 +234,7 @@ is<!DOCTYPE html>
                     <div class="company">Google Tech Exchange</div>
                     <span class="date">Jan 2023 - June 2023</span>
                     <div class="description">
-                        Completed applied data structures curriculum taught by Google engineers. Developed a wiki using Flask and Google Cloud Services.
+                        Completed applied data structures curriculum taught by Google engineers. [cite_start]Developed a wiki using Flask and Google Cloud Services[cite: 26, 27].
                     </div>
                 </div>
 
@@ -220,22 +249,23 @@ is<!DOCTYPE html>
                     <span class="skill-tag">HTML</span>
                 </div>
 
-                <button id="next-btn" class="btn-primary btn-full-width">I have a question...</button>
+                <button id="connect-btn" class="btn-primary btn-full-width">Let's Connect</button>
             </div>
         </div>
 
-        <div id="question-screen" class="screen">
-            <h1>Could you please give me an internship?</h1>
-            <div class="button-container">
-                <button id="yes-btn" class="btn-primary">Yes, absolutely</button>
-                <button id="no-btn" class="btn-secondary runaway-btn">No thanks</button>
-            </div>
-        </div>
-
-        <div id="success-screen" class="screen">
-            <h1>Thank you!!!</h1>
-            <p>Please contact me at <a href="mailto:julianpacheco1115@gmail.com" class="highlight" style="text-decoration: none;">julianpacheco1115@gmail.com</a> or through LinkedIn below.</p>
-            <button class="btn-primary" onclick="window.open('https://www.linkedin.com/in/julian-pacheco01/', '_blank')">View Profile</button>
+        <div id="contact-screen" class="screen">
+            <h1 style="font-size: 2rem;">Let's get in touch</h1>
+            <p style="font-size: 1.1rem; max-width: 400px; margin-bottom: 30px;">
+                I am currently open to internship opportunities and new projects. Feel free to reach out!
+            </p>
+            
+            <p style="font-size: 1.1rem;">Email me at:<br>
+                <a href="mailto:julianpacheco1115@gmail.com" class="highlight" style="text-decoration: none;">julianpacheco1115@gmail.com</a>
+            </p>
+            <br>
+            <button class="btn-primary" onclick="window.open('https://www.linkedin.com/in/julian-pacheco01/', '_blank')">View LinkedIn Profile</button>
+            <br><br>
+            <button id="back-btn" style="background: none; border: none; font-size: 0.9rem; color: #666; cursor: pointer; text-decoration: underline;">Back to Experience</button>
         </div>
 
     </div>
@@ -246,62 +276,46 @@ is<!DOCTYPE html>
     </a>
 
     <script>
-        // Screens
-        const introScreen = document.getElementById('intro-screen');
+        // DOM Elements
+        const introLayer = document.getElementById('intro-layer');
+        const mainCard = document.getElementById('main-card');
+        const startBtn = document.getElementById('start-btn');
+        
         const resumeScreen = document.getElementById('resume-screen');
-        const questionScreen = document.getElementById('question-screen');
-        const successScreen = document.getElementById('success-screen');
+        const contactScreen = document.getElementById('contact-screen');
 
-        // Buttons
-        const nextBtn = document.getElementById('next-btn');
-        const yesBtn = document.getElementById('yes-btn');
-        const noBtn = document.getElementById('no-btn');
+        const connectBtn = document.getElementById('connect-btn');
+        const backBtn = document.getElementById('back-btn');
 
-        // Helper to switch screens
+        // Helper: Switch screens inside the card
         function switchScreen(from, to) {
             from.classList.remove('active');
             from.style.opacity = '0';
             
             setTimeout(() => {
                 to.classList.add('active');
-            }, 600); // Wait for fade out
+            }, 600); 
         }
 
-
-        setTimeout(() => {
-            switchScreen(introScreen, resumeScreen);
-        }, 4500);
-
-
-        nextBtn.addEventListener('click', () => {
-            switchScreen(resumeScreen, questionScreen);
-        });
-
-
-        function moveButton(btn) {
-            btn.style.position = 'fixed'; 
+        // 1. START BUTTON CLICK (Full Screen -> Card)
+        startBtn.addEventListener('click', () => {
+            introLayer.style.opacity = '0';
+            introLayer.style.transform = 'scale(1.1)'; 
             
-            const padding = 60;
-
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth - padding);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight - padding);
-
-            btn.style.left = Math.max(padding/2, x) + 'px'; 
-            btn.style.top = Math.max(padding/2, y) + 'px';
-        }
-
-
-        noBtn.addEventListener('mouseover', () => moveButton(noBtn));
-        noBtn.addEventListener('touchstart', (e) => {
-             e.preventDefault(); 
-             moveButton(noBtn);
+            setTimeout(() => {
+                introLayer.style.display = 'none';
+                mainCard.classList.add('visible'); 
+            }, 800);
         });
 
+        // 2. RESUME -> CONTACT
+        connectBtn.addEventListener('click', () => {
+            switchScreen(resumeScreen, contactScreen);
+        });
 
-        yesBtn.addEventListener('click', () => {
-            switchScreen(questionScreen, successScreen);
-
-            document.querySelector('.footer-link').style.display = 'none';
+        // 3. CONTACT -> RESUME (Optional Back Button)
+        backBtn.addEventListener('click', () => {
+            switchScreen(contactScreen, resumeScreen);
         });
 
     </script>
