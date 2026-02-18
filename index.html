@@ -285,7 +285,7 @@
         <h1>Hello, my name is <br><span class="highlight">Julian Pacheco Hernandez</span>.</h1>
         <h2>I am a first generation Mexican student majoring in Computer Science.</h2>
         <br><br>
-        <button id="start-btn" class="btn-primary">Get to know me</button>
+        <button id="start-btn" class="btn-primary">Welcome</button>
     </div>
 
     <div id="main-content">
@@ -313,7 +313,7 @@
             <div class="resume-item">
                 <div class="job-header">
                     <div>
-                        <div class="job-title">Software Engineering Intern</div>
+                        <div class="job-title">AI Software Engineering Intern</div>
                         <div class="company">El Paso Water Company</div>
                     </div>
                     <div class="date">March 2025 - June 2025</div>
@@ -333,6 +333,40 @@
                 </div>
                 <div class="description">
                     Completed a demanding curriculum focused on applied data structures, software development, and cloud services taught by Google engineers. Developed a wiki website using Flask and Google Cloud Services.
+                </div>
+            </div>
+        </section>
+        <section>
+            <h3 class="section-title">Interests</h3>
+
+            <div class="resume-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Undergraduate Research Assistant</div>
+                        <div class="company">University of Texas at El Paso</div>
+                    </div>
+                    <div class="date">February 2026 - Present</div>
+                </div>
+                <div class="description">
+                    Understanding the reasoning behind the prediction of a neural network is essential for transparency and trust in
+AI, especially in critical domains. In image classification, models such as ResNet achieve high accuracy but often
+function as black boxes, leaving users unable to interpret which visual components influence a decision. This is
+of particular relevance and concern when such tools are used to make a medical diagnosis.
+In this work, we propose a Visual-Segmentation-Argumentation-based Explainable AI (XAI) pipeline designed
+to bridge this interpretability gap by identifying and quantifying the visual components most relevant to a model’s
+prediction and using computational argumentation to generate human understandable explanations. The pipeline
+begins with image classification, followed by a Large Language Model (LLM) that generates a list of expected
+visual components for the predicted class. Component localization is performed using an object detection model,
+e.g., Grounding DINO, to detect and localize components in the image with bounding boxes. The Integrated
+Gradients method is then applied to measure each component’s relative importance by aggregating pixel-level
+attributions within the detected regions. The resulting output highlights how specific components, such as
+“wheels” or “headlights” in a car image, contribute to the classification outcome, providing interpretable visual
+explanations. Finally, we build an argumentation framework to generate human-understandable explanations. The
+argumentation framework and explanation generation steps are currently in progress as we finish development.
+This combined approach lays the groundwork for a transparent component-level reasoning pipeline that enhances
+interpretability in image-based neural network decisions. Our preliminary results on the explanation of a car
+classification show that components such as wheels, tires, and windshield play a significant role in the model’s
+prediction. These findings demonstrate the potential of our explanation pipeline and will be presented.
                 </div>
             </div>
         </section>
