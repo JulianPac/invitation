@@ -120,7 +120,45 @@
         .company { font-weight: 500; font-size: 1rem; color: var(--li-blue); margin-top: 2px;}
         .date { font-size: 0.9rem; color: var(--text-medium); font-weight: 500;}
         .description { font-size: 1rem; color: var(--text-dark); line-height: 1.6; margin-top: 10px; }
+        /* --- NEW SKILLS GRID STYLES --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
 
+        .skill-box {
+            background-color: var(--li-white);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .skill-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .skill-box h4 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--li-dark-blue);
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .skill-tags-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        /* ------------------------------ */
 
         .skills-container { 
             display: flex; 
@@ -355,28 +393,39 @@
 
         <section>
             <h3 class="section-title">Technical Skills</h3>
-            <div class="skills-container">
-                <span class="skill-tag">Python (3 years)</span>
-                <span class="skill-tag">Java (3 years)</span>
-                <span class="skill-tag">HTML (3 years)</span>
-                <span class="skill-tag">JavaScript(1 year)</span>
-                <span class="skill-tag">Azure VA (4 months)</span>
-                <span class="skill-tag">SQL (4 months)</span>
-                <span class="skill-tag">Flask (1 year)</span>
-                <span class="skill-tag">Google Cloud Services (1 year)</span>
-            </div>
-            <div class="skills-container">
-                <span class="skill-tag">Python (3 years)</span>
-                <span class="skill-tag">Java (3 years)</span>
-                <span class="skill-tag">HTML (3 years)</span>
-                <span class="skill-tag">JavaScript(1 year)</span>
-                <span class="skill-tag">Azure VA (4 months)</span>
-                <span class="skill-tag">SQL (4 months)</span>
-                <span class="skill-tag">Flask (1 year)</span>
-                <span class="skill-tag">Google Cloud Services (1 year)</span>
+            <div class="skills-grid">
+                
+                <div class="skill-box">
+                    <h4>Languages</h4>
+                    <div class="skill-tags-wrapper">
+                        <span class="skill-tag">Python (3 years)</span>
+                        <span class="skill-tag">Java (3 years)</span>
+                        <span class="skill-tag">JavaScript (1 year)</span>
+                        <span class="skill-tag">SQL (4 months)</span>
+                        <span class="skill-tag">HTML (3 years)</span>
+                    </div>
+                </div>
+
+                <div class="skill-box">
+                    <h4>Frameworks</h4>
+                    <div class="skill-tags-wrapper">
+                        <span class="skill-tag">Flask (1 year)</span>
+                        <span class="skill-tag">React (Learning)</span> 
+                    </div>
+                </div>
+
+                <div class="skill-box">
+                    <h4>Skills & Tools</h4>
+                    <div class="skill-tags-wrapper">
+                        <span class="skill-tag">Google Cloud (1 year)</span>
+                        <span class="skill-tag">Azure VA (4 months)</span>
+                        <span class="skill-tag">Git/GitHub</span>
+                        <span class="skill-tag">VS Code</span>
+                    </div>
+                </div>
+
             </div>
         </section>
-
         <section id="contact">
             <h3 class="section-title">Let's Connect</h3>
             <div class="contact-box">
